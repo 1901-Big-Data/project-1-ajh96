@@ -19,7 +19,7 @@ public class Map1 extends Mapper<LongWritable, Text, Text, IntWritable>{
 			for(int x = 4; x < rows.length; x++) {
 				try {
 					if(rows[x].length() == 0) {
-						context.write(new Text("Primary School(empty): " + CountryName), new IntWritable(0));
+						context.write(new Text("Primary School: " + CountryName), new IntWritable(-1));
 					} else {
 						Integer Data = Integer.parseInt(rows[x]);
 						context.write(new Text("Primary School: " + CountryName), new IntWritable(Data));
@@ -35,7 +35,7 @@ public class Map1 extends Mapper<LongWritable, Text, Text, IntWritable>{
 			for(int x = 4; x < rows.length; x++) {
 				try {
 					if(rows[x].length() == 0) {
-						context.write(new Text("Bachelor's(empty): " + CountryName), new IntWritable(0));
+						context.write(new Text("Bachelor's: " + CountryName), new IntWritable(-1));
 					} else {
 						Integer Data = Integer.parseInt(rows[x]);
 						context.write(new Text("Bachelor's: " + CountryName), new IntWritable(Data));

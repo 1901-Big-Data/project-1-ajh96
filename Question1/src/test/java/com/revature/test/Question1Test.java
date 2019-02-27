@@ -50,7 +50,7 @@ public class Question1Test {
 		mapDriver.withInput(new LongWritable(1), new Text(input));
 		for (int x = 4; x < 61; x++) {
 			if (x != 60) {
-				mapDriver.withOutput(new Text("Primary School(empty): America"), new IntWritable(0));
+				mapDriver.withOutput(new Text("Primary School: America"), new IntWritable(-1));
 			} else {
 				mapDriver.withOutput(new Text("Primary School: America"), new IntWritable(50));
 			}
@@ -76,15 +76,16 @@ public class Question1Test {
 		list.add(new IntWritable(20));
 		reduceDriver.withInput(new Text("Primary School: America"), list);
 		reduceDriver.withOutput(new Text("Primary School: America"), new IntWritable(12));
+		reduceDriver.withOutput(new Text("Year of Maximum: 1963"), new IntWritable(20));
 		reduceDriver.runTest();
 	}
 	
 	@Test
 	public void testMapReduce() {
-		String input = "America,USA,Female Graduation Rates,SE.TER.CUAT.BA.FE.ZS,,,,,,,,,,,,,,,,,,,,,,,,,12,,,,3,15,,,,,,,,,,,35,,,0,,,8,,,,,,,,,,4";
+		String input = "America,USA,Female Graduation Rates,SE.TER.CUAT.BA.FE.ZS,,,,,,,,,,,,,,,,,,,,,,,,,12,,,,3,15,,,,,,,,,,,29,,,0,,,8,,,,,,,,,,4";
 		mapReduceDriver.withInput(new LongWritable(1), new Text(input));
-		mapReduceDriver.withOutput(new Text("Bachelor's(empty): America"), new IntWritable(0));
-		mapReduceDriver.withOutput(new Text("Bachelor's: America"), new IntWritable(11));
+		mapReduceDriver.withOutput(new Text("Bachelor's: America"), new IntWritable(10));
+		mapReduceDriver.withOutput(new Text("Year of Maximum: 2000"), new IntWritable(29));
 		mapReduceDriver.runTest();
 	}
 }
