@@ -12,6 +12,9 @@ import org.apache.hadoop.util.Tool;
 import org.apache.hadoop.util.ToolRunner;
 
 public class CustomQuestion extends Configured implements Tool{
+	//My custom question looks into how much money a county's government invests in
+	//schooling per GDP capita: Primary per student, Secondary per student
+	//and Total investment 
 	@Override
 	public int run(String[] args) throws Exception {
 		if (args.length != 2) {

@@ -11,6 +11,7 @@ public class Map1 extends Mapper<LongWritable, Text, Text, IntWritable>{
 	@Override
 	public void map(LongWritable key, Text text, Context context) throws IOException, InterruptedException{
 		String line = text.toString();
+		line = line.replace(", ", " ");
 		String[] rows = line.split(",");
 		String CountryName = rows[0];
 		String IndicatorCode = rows[3];

@@ -61,7 +61,7 @@ public class Question1Test {
 	
 	@Test
 	public void testMapperIncorrectSeriesCode() {
-		String input = "America,USA,Female Graduation Rates,SE.TER.HIAT.ST.MA.ZS,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,50";
+		String input = "America,USA,Female Graduation Rates,SL.TLF.CACT.FE.NE.ZS,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,50";
 		mapDriver.withInput(new LongWritable(1), new Text(input));
 		//check if an input that doesn't match the series-code isn't mapped
 		mapDriver.runTest();
