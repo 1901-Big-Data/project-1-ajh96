@@ -3,6 +3,7 @@ package com.revature.test;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.hadoop.io.DoubleWritable;
 import org.apache.hadoop.io.IntWritable;
 import org.apache.hadoop.io.LongWritable;
 import org.apache.hadoop.io.Text;
@@ -15,21 +16,21 @@ import org.junit.Test;
 import com.revature.question1.*;
 
 public class Question1Test {
-	private MapDriver<LongWritable, Text, Text, IntWritable> mapDriver;
-	private ReduceDriver<Text, IntWritable, Text, IntWritable> reduceDriver;
-	private MapReduceDriver<LongWritable, Text, Text, IntWritable, Text, IntWritable> mapReduceDriver;
+	private MapDriver<LongWritable, Text, Text, DoubleWritable> mapDriver;
+	private ReduceDriver<Text, DoubleWritable, Text, DoubleWritable> reduceDriver;
+	private MapReduceDriver<LongWritable, Text, Text, DoubleWritable, Text, DoubleWritable> mapReduceDriver;
 	
 	@Before
 	public void setup() {
 		Map1 Mapper = new Map1();
-		mapDriver = new MapDriver<LongWritable, Text, Text, IntWritable>();
+		mapDriver = new MapDriver<LongWritable, Text, Text, DoubleWritable>();
 		mapDriver.setMapper(Mapper);
 		
 		Reduce1 Reducer = new Reduce1();
-		reduceDriver = new ReduceDriver<Text, IntWritable, Text, IntWritable>();
+		reduceDriver = new ReduceDriver<Text, DoubleWritable, Text, DoubleWritable>();
 		reduceDriver.setReducer(Reducer);
 		
-		mapReduceDriver = new MapReduceDriver<LongWritable, Text, Text, IntWritable, Text, IntWritable>();
+		mapReduceDriver = new MapReduceDriver<LongWritable, Text, Text, DoubleWritable, Text, DoubleWritable>();
 		mapReduceDriver.setMapper(Mapper);
 		mapReduceDriver.setReducer(Reducer);
 	}
@@ -39,7 +40,7 @@ public class Question1Test {
 		String input = "America,USA,Female Graduation Rates,SE.TER.CUAT.BA.FE.ZS,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0";
 		mapDriver.withInput(new LongWritable(1), new Text(input));
 		for (int x = 4; x < 61; x++) {
-			mapDriver.withOutput(new Text("Bachelor's: America"), new IntWritable(0));
+			mapDriver.withOutput(new Text("Bachelor's: America"), new DoubleWritable(0));
 		}
 		mapDriver.runTest();
 	}
@@ -50,9 +51,9 @@ public class Question1Test {
 		mapDriver.withInput(new LongWritable(1), new Text(input));
 		for (int x = 4; x < 61; x++) {
 			if (x != 60) {
-				mapDriver.withOutput(new Text("Primary School: America"), new IntWritable(-1));
+				mapDriver.withOutput(new Text("Primary School: America"), new DoubleWritable(-1));
 			} else {
-				mapDriver.withOutput(new Text("Primary School: America"), new IntWritable(50));
+				mapDriver.withOutput(new Text("Primary School: America"), new DoubleWritable(50));
 			}
 			
 		}
@@ -69,14 +70,14 @@ public class Question1Test {
 	
 	@Test
 	public void testAverageSum() {
-		List<IntWritable> list = new ArrayList<IntWritable>();
-		list.add(new IntWritable(5));
-		list.add(new IntWritable(10));
-		list.add(new IntWritable(15));
-		list.add(new IntWritable(20));
+		List<DoubleWritable> list = new ArrayList<DoubleWritable>();
+		list.add(new DoubleWritable(5));
+		list.add(new DoubleWritable(10));
+		list.add(new DoubleWritable(15));
+		list.add(new DoubleWritable(20));
 		reduceDriver.withInput(new Text("Primary School: America"), list);
-		reduceDriver.withOutput(new Text("Primary School: America"), new IntWritable(12));
-		reduceDriver.withOutput(new Text("Year of Maximum: 1963"), new IntWritable(20));
+		reduceDriver.withOutput(new Text("Primary School: America"), new DoubleWritable(12.5));
+		reduceDriver.withOutput(new Text("Year of Maximum: 1963"), new DoubleWritable(20));
 		reduceDriver.runTest();
 	}
 	
@@ -84,8 +85,8 @@ public class Question1Test {
 	public void testMapReduce() {
 		String input = "America,USA,Female Graduation Rates,SE.TER.CUAT.BA.FE.ZS,,,,,,,,,,,,,,,,,,,,,,,,,12,,,,3,15,,,,,,,,,,,29,,,0,,,8,,,,,,,,,,4";
 		mapReduceDriver.withInput(new LongWritable(1), new Text(input));
-		mapReduceDriver.withOutput(new Text("Bachelor's: America"), new IntWritable(10));
-		mapReduceDriver.withOutput(new Text("Year of Maximum: 2000"), new IntWritable(29));
+		mapReduceDriver.withOutput(new Text("Bachelor's: America"), new DoubleWritable(10.142857142857142));
+		mapReduceDriver.withOutput(new Text("Year of Maximum: 2000"), new DoubleWritable(29));
 		mapReduceDriver.runTest();
 	}
 }
