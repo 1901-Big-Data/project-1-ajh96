@@ -33,9 +33,9 @@ public class Reduce1 extends Reducer<Text, DoubleWritable, Text, DoubleWritable>
 		average = sum / count;
 		if (average < 30) {
 			context.write(text, new DoubleWritable(average));
-		}
-		if (max < 30) {
-			context.write(new Text("Year of Maximum: " + maxYear),  new DoubleWritable(max));
+			if (max >= 30) {
+				context.write(new Text("Year of Maximum: " + maxYear),  new DoubleWritable(max));
+			}
 		}
 	}
 }

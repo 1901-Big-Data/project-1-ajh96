@@ -77,16 +77,15 @@ public class Question1Test {
 		list.add(new DoubleWritable(20));
 		reduceDriver.withInput(new Text("Primary School: America"), list);
 		reduceDriver.withOutput(new Text("Primary School: America"), new DoubleWritable(12.5));
-		reduceDriver.withOutput(new Text("Year of Maximum: 1963"), new DoubleWritable(20));
 		reduceDriver.runTest();
 	}
 	
 	@Test
 	public void testMapReduce() {
-		String input = "America,USA,Female Graduation Rates,SE.TER.CUAT.BA.FE.ZS,,,,,,,,,,,,,,,,,,,,,,,,,12,,,,3,15,,,,,,,,,,,29,,,0,,,8,,,,,,,,,,4";
+		String input = "America,USA,Female Graduation Rates, in percent,SE.TER.CUAT.BA.FE.ZS,,,,,,,,,,,,,,,,,,,,,,,,,12,,,,3,15,,,,,,,,,,,31,,,0,,,8,,,,,,,,,,4";
 		mapReduceDriver.withInput(new LongWritable(1), new Text(input));
-		mapReduceDriver.withOutput(new Text("Bachelor's: America"), new DoubleWritable(10.142857142857142));
-		mapReduceDriver.withOutput(new Text("Year of Maximum: 2000"), new DoubleWritable(29));
+		mapReduceDriver.withOutput(new Text("Bachelor's: America"), new DoubleWritable(10.428571428571429));
+		mapReduceDriver.withOutput(new Text("Year of Maximum: 2000"), new DoubleWritable(31));
 		mapReduceDriver.runTest();
 	}
 }
